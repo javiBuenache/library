@@ -39,6 +39,8 @@ class BookController extends Controller
         $book->title = $request->title;
         $book->description = $request->description;
         $book->save();
+
+        return response()->json(["Libro creado"], 201);
     }
 
     /**
