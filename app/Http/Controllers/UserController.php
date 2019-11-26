@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\User;
-use App\Book;
 
 use Illuminate\Http\Request;
+use App\User;
+use App\Book;
+use App\Helpers\Token;
 
 class UserController extends Controller
 {
