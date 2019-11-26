@@ -22,5 +22,11 @@ class User extends Model
         $user->email = $request->email;
         $user->password = $request->password;
         $user->save();
+
+        $data_token = ["email"=>$user->email];
+        
+        $token = new Token($data_token);
+        $token_encode= $token->encode();
+        return response()->json(["token"=> $token_encode], 201);
     }
 }
