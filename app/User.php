@@ -12,9 +12,9 @@ class User extends Model
 
     public function books()
     {
-        return $this->belongsToMany('App\Book', 'user_lend_books');
+        return $this->belongsToMany('App\Book', 'user_lend_book');
     }
-    
+
     public function register(Request $request)
     {
         $user = new Self();
