@@ -25,7 +25,7 @@ class UserController extends Controller
         {
             $data_token = new Token(['email' => $user->email]);
             $token_encode = $data_token->encode();
-            return response()->json(["token"=>$token_encode,], 201);
+            return response()->json(["token"=>$token_encode,], 200);
         }      
         return response()->json(['message' => 'No registrado'], 401);
     }
@@ -39,7 +39,7 @@ class UserController extends Controller
         $book = Book::find($request->book_id);
         $user->books()->attach($book);
 
-        return response()->json(['message' => 'Libro prestado'],201);
+        return response()->json(['message' => 'Libro prestado'],200);
     }
     /**
      * Display a listing of the resource.
@@ -70,10 +70,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = $request->password;
-        $user->save();
+        $user->register($request);
         
         $data_token = ["email"=>$user->email];
         

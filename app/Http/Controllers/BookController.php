@@ -36,9 +36,7 @@ class BookController extends Controller
     public function store(Request $request)
     {
         $book = new Book();
-        $book->title = $request->title;
-        $book->description = $request->description;
-        $book->save();
+        $book->register($request);
 
         return response()->json(["Libro creado"], 201);
     }
