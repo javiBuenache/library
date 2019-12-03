@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Book;
 use App\Helpers\Token;
-use Firebase\JWT\JWT;
+
 
 class UserController extends Controller
 {
