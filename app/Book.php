@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
-use App\Helpers\Token;
+
 
 class Book extends Model
 {
