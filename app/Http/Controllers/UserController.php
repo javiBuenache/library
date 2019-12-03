@@ -30,17 +30,7 @@ class UserController extends Controller
         return response()->json(['message' => 'No registrado'], 401);
     }
 
-    public function lend(Request $request)
-    {
-        /*$header = $request->header("Authorization");    
-        $token = new Token();*/
-
-        $user = User::find($request->user_id);
-        $book = Book::find($request->book_id);
-        $user->books()->attach($book);
-
-        return response()->json(['message' => 'Libro prestado'],200);
-    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -85,9 +75,13 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function showUsers($id)
     {
-        //
+        $user = User::all();
+        foreach ($users as $key => $value) 
+        {
+            print($value);
+        }
     }
 
     /**

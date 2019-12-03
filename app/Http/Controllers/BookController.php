@@ -4,9 +4,28 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Book;
+use App\User;
 
 class BookController extends Controller
 {
+
+    public function lend(Request $request)
+    {
+      
+        $token = new Token();
+        $header_token = $request->header('Authentication');
+        $data_token = $token->decode($header_token);
+        $user = User::where('email',$data_token->email)->first();
+        $book = Book::where('id', $request->book_id)->first();
+       
+        $book->users()->attach($user->id);
+        
+       /* $user = User::find($request->user_id);
+        $book = Book::find($request->book_id);
+        $user->books()->attach($book);*/
+
+        return response()->json(['message' => 'Libro prestado'],200);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -47,9 +66,13 @@ class BookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+        $books = Book::all();
+        foreach ($books as $key => $value) 
+        {
+            print($value);
+        }
     }
 
     /**
