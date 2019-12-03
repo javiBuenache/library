@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Book;
 use App\User;
+use App\Helpers\Token;
 
 class BookController extends Controller
 {
@@ -18,7 +19,7 @@ class BookController extends Controller
         $user = User::where('email',$data_token->email)->first();
         $book = Book::where('id', $request->book_id)->first();
        
-        $book->users()->attach($user->id);
+        $user->books()->attach($book);
         
        /* $user = User::find($request->user_id);
         $book = Book::find($request->book_id);
@@ -33,7 +34,11 @@ class BookController extends Controller
      */
     public function index()
     {
-        //
+        $books = Book::all();
+        foreach ($books as $key => $value) 
+        {
+            print($value);
+        }
     }
 
     /**
@@ -68,11 +73,7 @@ class BookController extends Controller
      */
     public function show()
     {
-        $books = Book::all();
-        foreach ($books as $key => $value) 
-        {
-            print($value);
-        }
+        
     }
 
     /**

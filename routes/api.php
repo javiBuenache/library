@@ -20,5 +20,5 @@ Route::post('login', 'UserController@login');
 Route::group(['middleware' => ['auth']], function () 
 {
     Route::apiResource('books', 'BookController');    
-    Route::post('lend','UserController@lend');
+    Route::post('lend','BookController@lend');
 });

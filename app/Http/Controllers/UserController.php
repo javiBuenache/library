@@ -39,7 +39,11 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $user = User::all();
+        foreach ($users as $key => $value) 
+        {
+            print($value);
+        }
     }
 
     /**
@@ -76,13 +80,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function showUsers($id)
+    public function show($id)
     {
-        $user = User::all();
-        foreach ($users as $key => $value) 
-        {
-            print($value);
-        }
+       
     }
 
     /**
