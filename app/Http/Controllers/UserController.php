@@ -118,4 +118,19 @@ class UserController extends Controller
     {
         //
     }
+
+    public function lend(Request $request)
+    {
+        $request_token = $request->header('Authorization');
+        $token = new Token();
+        
+        $decoded_token = $token->decode($request_token);     
+       
+        $user = User::where('email', '=', $decoded_token->email)->first();
+       
+        $book = Book::where('title', '=', $request->title)->first();
+        $book_id = $book->id;        
+        
+        $user->books()->attach($book_id);
+    }
 }
