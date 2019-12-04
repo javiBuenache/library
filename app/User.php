@@ -14,7 +14,7 @@ class User extends Model
 
     public function books()
     {
-        return $this->belongsToMany('App\Book', 'user_lend_book');
+        return $this->belongsToMany('App\Book', 'user_lend_book')->withTimestamps();
     }
 
     public function register(Request $request)

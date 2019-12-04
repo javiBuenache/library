@@ -26,9 +26,35 @@ class UserController extends Controller
         {   
             $data_token = new Token(['email' => $user->email]);
             $token_encode = $data_token->encode();
+
             return response()->json(["token"=>$token_encode,], 200);
         }      
         return response()->json(['message' => 'No registrado'], 401);
+    }
+
+    public function lend(Request $request)
+    {
+        $request_token = $request->header('Authorization');
+        $token = new Token();
+        
+        $decoded_token = $token->decode($request_token);     
+       
+        $user = User::where('email', '=', $decoded_token->email)->first();
+       
+        if (!$request->title != null)
+        {
+            $book = Book::where('title', '=', $request->title)->first();
+            $book_id = $book->id;
+            $user->books()->attach($book_id);
+
+            return response()->json(['message' => 'Libro prestado'], 200); 
+
+        } else
+        
+        {
+            return response()->json(['message' => 'Libro no registrado'], 401);
+        }
+
     }
 
     
@@ -119,18 +145,5 @@ class UserController extends Controller
         //
     }
 
-    public function lend(Request $request)
-    {
-        $request_token = $request->header('Authorization');
-        $token = new Token();
-        
-        $decoded_token = $token->decode($request_token);     
-       
-        $user = User::where('email', '=', $decoded_token->email)->first();
-       
-        $book = Book::where('title', '=', $request->title)->first();
-        $book_id = $book->id;        
-        
-        $user->books()->attach($book_id);
-    }
+   
 }
