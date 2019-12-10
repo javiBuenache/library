@@ -55,11 +55,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user = User::all();
-        foreach ($users as $key => $value) 
-        {
-            print($value);
-        }
+        $users = User::all();
+        return response()->json($users);
     }
 
     /**
