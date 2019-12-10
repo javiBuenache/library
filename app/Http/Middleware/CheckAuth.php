@@ -17,18 +17,24 @@ class CheckAuth
      */
     public function handle($request, Closure $next)
     {
-        $header = $request->header("Authorization");    
+        $header_token = $request->header('Authorization');
         $token = new Token();
+        $decoded_token = $token->decode($header_token);
         
-        if ($header != null) 
+        $user = User::where('email', '=', $decoded_token->email)->first();
+                     
+        $request->request->add(['user' => $user]);
+
+        if($user != null)
         {
-            $decodedToken = $token->decode($header);
-           
-        }
-        
-        if (!empty($decodedToken)) {
             return $next($request);
         }
-        return response()->json(['message' => 'Error, no tiene los permisos'], 401);
+        else
+        {
+            return response()->json([
+                "message" => "no tienes permisos"
+            ], 401);
+        }
+     
     }
 }

@@ -19,7 +19,7 @@ class BookController extends Controller
     {
         $books = Book::all();
         
-        return response()->json(["Todos los libros: "],$books);
+        return response()->json($books);
     }
 
     /**
